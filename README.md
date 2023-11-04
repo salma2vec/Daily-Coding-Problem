@@ -2,7 +2,7 @@
 Welcome to my LeetCode solutions repository. In this repository, you'll find solutions to various LeetCode problems implemented in Python, MySQL, and C++.
 
 ### Daily Coding Problem
-_If you like this project, please leave me a star._ &#9733;
+If you find this repository helpful, please leave me a star. &#9733;
 
 
 
