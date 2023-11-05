@@ -3,7 +3,7 @@ class Solution:
         if numRows == 1 or numRows >= len(s):
             return s
 
-        result = [''] * numRows
+        result = [""] * numRows
         index, step = 0, 1
 
         for char in s:
@@ -14,4 +14,4 @@ class Solution:
                 step = -1
             index += step
 
-        return ''.join(result)
+        return "".join(result) 
