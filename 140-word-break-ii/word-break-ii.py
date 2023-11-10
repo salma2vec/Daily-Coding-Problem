@@ -11,11 +11,12 @@ class Solution:
             for end in range(start + 1, n + 1):
                 word = s[start:end]
                 if word in wordSet:
-                    for sentence in wordBreakDP(end):
+                    next_sentences = wordBreakDP(end)
+                    for sentence in next_sentences:
                         if sentence:
                             sentences.append(word + " " + sentence)
                         else:
                             sentences.append(word)
             return sentences
 
-        return wordBreakDP(0)        
+        return wordBreakDP(0)
