@@ -2,26 +2,24 @@ from typing import List
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        d = {}
+        if not prices:
+            return 0
 
-        def bs(index, holding_stock):
-            if index >= len(prices):
-                return 0
+        n = len(prices)
+        dp = [[0] * 2 for _ in range(n)]
 
-            if (index, holding_stock) in d:
-                return d[(index, holding_stock)]
+        # Base case
+        dp[0][1] = -prices[0]
 
-            if holding_stock:
-                # If holding stock, we can either sell it today or hold
-                profit = max(prices[index] + bs(index + 1, False), bs(index + 1, True))
-            else:
-                # If not holding stock, we can either buy it today or skip
-                profit = max(-prices[index] + bs(index + 1, True), bs(index + 1, False))
+        for i in range(1, n):
+            # Update buy and sell states
+            dp[i][0] = max(dp[i - 1][0], dp[i - 1][1] + prices[i])
+            dp[i][1] = max(dp[i - 1][1], dp[i - 1][0] - prices[i])
 
-            d[(index, holding_stock)] = profit
-            return profit
+        return dp[n - 1][0]
 
-        return bs(0, False)
+
+
 
 
 
