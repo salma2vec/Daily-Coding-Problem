@@ -2,25 +2,27 @@ from typing import List
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        """
-        Calculate the maximum profit you can achieve by buying and selling stock on the same day.
+        d = {}
 
-        Args:
-            prices (List[int]): The list of stock prices for each day.
+        def bs(index, holding_stock):
+            if index >= len(prices):
+                return 0
 
-        Returns:
-            int: The maximum profit achievable.
-        """
-        max_profit = 0  # Initialize the maximum profit to 0
+            if (index, holding_stock) in d:
+                return d[(index, holding_stock)]
 
-        for i in range(1, len(prices)):
-            # Calculate the profit for the current day (buying and selling on the same day)
-            profit = prices[i] - prices[i - 1]
+            if holding_stock:
+                # If holding stock, we can either sell it today or hold
+                profit = max(prices[index] + bs(index + 1, False), bs(index + 1, True))
+            else:
+                # If not holding stock, we can either buy it today or skip
+                profit = max(-prices[index] + bs(index + 1, True), bs(index + 1, False))
 
-            # If the profit is positive, add it to the maximum profit
-            if profit > 0:
-                max_profit += profit
+            d[(index, holding_stock)] = profit
+            return profit
 
-        return max_profit
+        return bs(0, False)
+
+
 
         
