@@ -4,7 +4,7 @@ Welcome to my LeetCode solutions repository. Here, you'll find solutions to vari
 ![Leetcode Stats](https://leetcard.jacoblin.cool/salmasaa02?ext=activity)
 
 ### Daily Coding Problem
-If you find this repository helpful, please leave me a star. &#9733;
+If you find this repository helpful and...scrolled down this far, please leave me a star! &#9733;
 
 
 
