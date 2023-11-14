@@ -1,35 +1,51 @@
+from typing import List
+from collections import defaultdict
+
+class CycleDetectedException(Exception):
+    pass
+
 class Solution:
     def largestPathValue(self, colors: str, edges: List[List[int]]) -> int:
         n = len(colors)
-
-        graph = defaultdict(list)
-        in_degree = [0] * n
-        for u, v in edges:
-            graph[u].append(v)
-            in_degree[v] += 1
-
-        queue = deque()
+        g = {}
         for i in range(n):
-            if in_degree[i] == 0:
-                queue.append(i)
+            g[i] = []
+        for src, dst in edges:
+            g[src].append(dst)
 
-        dp = [[0] * 26 for _ in range(n)]  # dp[i][c] stores the count of color 'c' in the longest path ending at node i
-        result = 0
+        path, visit = set(), set()
+        dp = {i: defaultdict(int) for i in range(n)}
 
-        while queue:
-            node = queue.popleft()
-            color = ord(colors[node]) - ord('a')
-            dp[node][color] += 1
-            result = max(result, dp[node][color])
+        def dfs(i):
+            if i in path:
+                raise CycleDetectedException
 
-            for neighbor in graph[node]:
-                in_degree[neighbor] -= 1
-                dp[neighbor] = [max(dp[neighbor][i], dp[node][i]) for i in range(26)]
-                if in_degree[neighbor] == 0:
-                    queue.append(neighbor)
+            if i in visit:
+                return 0
 
-        # checking if there is a cycle (some nodes are not processed)
-        if sum(in_degree) > 0:
-            return -1
+            dp[i][colors[i]] = 1
 
-        return result
+            path.add(i)
+            for nei in g[i]:
+                dfs(nei)
+                for c in dp[nei]:
+                    neiCount = 1 + dp[nei][c] if c == colors[i] else dp[nei][c]
+                    dp[i][c] = max(dp[i][c], neiCount)
+            path.remove(i)
+            visit.add(i)
+
+        res = 0
+        for i in range(len(colors)):
+            try:
+                dfs(i)
+                res = max(res, max(dp[i].values()))
+            except CycleDetectedException:
+                return -1
+
+        return res
+
+solution = Solution()
+colors = "rrrde"
+edges = [[4, 2], [3, 4], [0, 3], [1, 0], [2, 1]]
+print(solution.largestPathValue(colors, edges))  # Output: -1
+
