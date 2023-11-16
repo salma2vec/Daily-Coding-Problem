@@ -7,7 +7,11 @@ class Solution:
         """
         :rtype: int
         """
-        rand40 = 40
-        while rand40 >= 40:
-            rand40 = (rand7() - 1) * 7 + rand7() - 1
-        return rand40 % 10 + 1        
+        arr = [[1,2],[3,4],[5,6],[7,8],[9,10]]
+        val1 = rand7()
+        while val1 >= 6:
+            val1 = rand7()
+        val2 = rand7()
+        while val2 >= 7:
+            val2 = rand7()
+        return arr[val1 - 1][val2 % 2]
