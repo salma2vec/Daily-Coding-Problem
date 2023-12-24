@@ -10,7 +10,7 @@ class Solution:
             num = nums[i]
             if(pref_sum[p_i] is not None):
                 if( pref_sum[p_i] > num):
-                    if(i>=2):
+                    if(i >= 2):
                         maxPossiblePolygonPermieter=pref_sum[p_i] + num
             pref_sum[i] = num  +  (0 if(pref_sum[p_i] is None) else pref_sum[p_i])
 
