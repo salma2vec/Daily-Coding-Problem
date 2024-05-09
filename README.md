@@ -3,8 +3,6 @@ Welcome to my LeetCode solutions repository. Here, you'll find solutions to vari
 
 ![Leetcode Stats](https://leetcard.jacoblin.cool/salma2vec?ext=activity)
 
-### Daily Coding Problem
-If you find this repository helpful and...scrolled down this far, please leave me a star! &#9733;
 
 
 
