@@ -1,33 +1,34 @@
 func findDiagonalOrder(mat [][]int) []int {
-    if len(mat) == 0 || len(mat[0]) == 0 {
-        return []int{}
-    }
-
-    m, n := len(mat), len(mat[0])
-    diagonals := make(map[int][]int)
-
-    for row := 0; row < m; row++ {
-        for col := 0; col < n; col++ {
-            diagonals[row+col] = append(diagonals[row+col], mat[row][col])
+    x, y := 0, 0
+    rows := len(mat) - 1
+    cols := len(mat[0]) - 1
+    res := []int{}
+    up := true
+    for {
+        if x + y > rows + cols {
+            break
         }
-    }
+        res = append(res, mat[x][y])
 
-    result := make([]int, m*n)
-    idx := 0
-
-    for k := 0; k <= m+n-2; k++ {
-        if k%2 == 0 {
-            for i := len(diagonals[k]) - 1; i >= 0; i-- {
-                result[idx] = diagonals[k][i]
-                idx++
-            }
+        if up && y >= cols { 
+            up = false
+            x++
+        } else if up && x <= 0 { 
+            up = false
+            y++
+        } else if !up && x >= rows {
+            up = true
+            y++
+        } else if !up && y <= 0 { 
+            up = true
+            x++
+        } else if up { 
+            x--
+            y++
         } else {
-            for i := 0; i < len(diagonals[k]); i++ {
-                result[idx] = diagonals[k][i]
-                idx++
-            }
+            x++
+            y--
         }
     }
-
-    return result
+    return res
 }
